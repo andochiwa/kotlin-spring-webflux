@@ -5,10 +5,7 @@ import com.github.webflux.service.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 /**
@@ -24,13 +21,13 @@ class UserController {
     @Autowired
     private lateinit var userService: UserService
 
-    private val log: Logger = LoggerFactory.getLogger(UserController::class.java)
-
     @GetMapping("{id}")
     suspend fun getUserById(@PathVariable("id") id: Long) : User? {
-        log.info("webflux start")
-        val user = userService.getUserById(id)
-        log.info("webflux stop")
-        return user
+        return userService.getUserById(id)
+    }
+
+    @PostMapping
+    fun saveUser(@RequestBody user: User): Mono<User> {
+        return userService.saveUser(user)
     }
 }
