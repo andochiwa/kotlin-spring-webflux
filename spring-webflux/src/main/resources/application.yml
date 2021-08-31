@@ -1,0 +1,9 @@
+server:
+  port: 7777
+spring:
+  r2dbc:
+    url: r2dbcs:mysql://localhost:3306/test?serverZoneId=Japan
+    username: root
+    password: root
+    pool:
+      max-idle-time: 5m
