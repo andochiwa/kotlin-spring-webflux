@@ -29,7 +29,7 @@ class UserService {
         return userDao.findById(id)
     }
 
-    fun saveUser(user: User): Mono<User> {
-        return userDao.insert(user)
+    suspend fun saveUser(user: User): User {
+        return userDao.save(user)
     }
 }

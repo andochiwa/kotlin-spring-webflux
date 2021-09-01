@@ -27,7 +27,7 @@ class UserController {
     }
 
     @PostMapping
-    fun saveUser(@RequestBody user: User): Mono<User> {
+    suspend fun saveUser(@RequestBody user: User): User {
         return userService.saveUser(user)
     }
 }
