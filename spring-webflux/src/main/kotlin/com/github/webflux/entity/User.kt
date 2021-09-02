@@ -16,7 +16,7 @@ import java.io.Serializable
 @Table("user")
 data class User(
     @Id
-    @JvmField
+    @get:JvmName("deprecate")
     var id: Long? = null,
 
     var name: String? = null,
