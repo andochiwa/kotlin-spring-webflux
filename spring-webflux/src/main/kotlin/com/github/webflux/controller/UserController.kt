@@ -2,11 +2,9 @@ package com.github.webflux.controller
 
 import com.github.webflux.entity.User
 import com.github.webflux.service.UserService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import kotlinx.coroutines.flow.Flow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import reactor.core.publisher.Mono
 
 /**
  *
@@ -29,5 +27,16 @@ class UserController {
     @PostMapping
     suspend fun saveUser(@RequestBody user: User): User {
         return userService.saveUser(user)
+    }
+
+    @GetMapping("{current}/{limit}")
+    suspend fun getUserPagination(@PathVariable("current") current: Int,
+                                  @PathVariable("limit") limit: Int): Flow<User> {
+        return userService.getUserPagination(current, limit)
+    }
+
+    @GetMapping
+    suspend fun getUserAll(): Flow<User> {
+        return userService.getUserAll()
     }
 }

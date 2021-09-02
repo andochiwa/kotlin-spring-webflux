@@ -1,7 +1,8 @@
 package com.github.webflux.dao
 
 import com.github.webflux.entity.User
-import org.springframework.data.r2dbc.core.R2dbcEntityOperations
+import kotlinx.coroutines.flow.Flow
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 /**
@@ -11,4 +12,6 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
  * @version 1.0
  */
 interface UserDao: CoroutineCrudRepository<User, Long> {
+
+    fun findBy(pageable: Pageable): Flow<User>
 }

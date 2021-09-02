@@ -2,16 +2,10 @@ package com.github.webflux.service
 
 import com.github.webflux.dao.UserDao
 import com.github.webflux.entity.User
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import kotlinx.coroutines.flow.Flow
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.scheduling.annotation.Async
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Mono
-import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -31,5 +25,13 @@ class UserService {
 
     suspend fun saveUser(user: User): User {
         return userDao.save(user)
+    }
+
+    fun getUserPagination(current: Int, limit: Int): Flow<User> {
+        return userDao.findBy(PageRequest.of(current, limit))
+    }
+
+    suspend fun getUserAll(): Flow<User> {
+        return userDao.findAll()
     }
 }
