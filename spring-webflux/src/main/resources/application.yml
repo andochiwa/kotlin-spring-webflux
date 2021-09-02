@@ -7,3 +7,6 @@ spring:
     password: root
     pool:
       max-idle-time: 5m
+logging:
+  level:
+    org.springframework.r2dbc: debug
